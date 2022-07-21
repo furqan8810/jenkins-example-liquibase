@@ -8,12 +8,12 @@ pipeline {
   stages {
     stage('Status') {
       steps {
-        sh 'liquibase status --url="jdbc:mysql://db.stgqa2.unicommerce.infra:3306/delta?autoReconnect=true&useSSL=false" --includeAll path=liquibase --username=$MARIADB_CREDS_USR --password=$MARIADB_CREDS_PSW'
+        sh 'liquibase status --url="jdbc:mysql://db.stgqa2.unicommerce.infra:3306/delta?autoReconnect=true&useSSL=false" --changeLogFile=my_app-wrapper.xml --username=$MARIADB_CREDS_USR --password=$MARIADB_CREDS_PSW'
       }
     }
     stage('Update') {
       steps {
-        sh 'liquibase update --url="jdbc:mysql://db.stgqa2.unicommerce.infra:3306/delta?autoReconnect=true&useSSL=false" --includeAll path=liquibase --username=$MARIADB_CREDS_USR --password=$MARIADB_CREDS_PSW'
+        sh 'liquibase update --url="jdbc:mysql://db.stgqa2.unicommerce.infra:3306/delta?autoReconnect=true&useSSL=false" --changeLogFile=my_app-wrapper.xml --username=$MARIADB_CREDS_USR --password=$MARIADB_CREDS_PSW'
       }
     }
   }
